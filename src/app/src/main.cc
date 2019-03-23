@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdexcept>
+#include <cmath>
 #include "calculator.h"
 
 int main(int argc, char** argv)
@@ -11,9 +12,23 @@ int main(int argc, char** argv)
     }
     else
     {
-        Calculator mCalculator{std::stod(argv[1]), *(argv[2]), std::stod(argv[3])};
+        double firstNumber = std::stod(argv[1]);
+        char sign = *(argv[2]);
+        double secondNUmber = std::stod(argv[3]);
+        Calculator mCalculator{firstNumber, sign, secondNUmber};
         result = mCalculator.calculate();
-        std::cout << argv[1] << " " << argv[2] << " " << result << " = " << result << std::endl;
+        if(secondNUmber<0 && sign == '-')
+        {
+            std::cout << firstNumber << "+" << abs(secondNUmber) << "=" << result << std::endl;
+        }
+        else if(secondNUmber<0 && (sign == '+' || sign == '-'))
+        {
+            std::cout << firstNumber << "" << secondNUmber << "=" << result << std::endl;
+        }
+        else
+        {
+            std::cout << firstNumber << "" << argv[2] << "" << secondNUmber << "=" << result << std::endl;
+        }
     }
     return result;
 }
